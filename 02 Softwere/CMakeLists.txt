@@ -22,13 +22,26 @@ set(PROJECT_SOURCES
     01_FrontEnd/01_MenuBar/02_Edit.cpp
     01_FrontEnd/01_MenuBar/03_Tools.cpp
     01_FrontEnd/01_MenuBar/04_Help.cpp
-    02_BackEnd/00_ClassStructures/00_Project.cpp
     02_BackEnd/00_ClassStructures/00_Project.h
-    02_BackEnd/00_ClassStructures/01-S_LogicBlockSupport.h
-    02_BackEnd/00_ClassStructures/01-0_LogicBlockDefinition.h
-    02_BackEnd/00_ClassStructures/01-0_LogicBlockDefinition.cpp
-    02_BackEnd/00_ClassStructures/01-1_LogicBlockInstance.h
-    02_BackEnd/00_ClassStructures/01-1_LogicBlockInstance.cpp
+    02_BackEnd/00_ClassStructures/00_Project.cpp
+    02_BackEnd/00_ClassStructures/01_Library.h
+    02_BackEnd/00_ClassStructures/01_Library.cpp
+    02_BackEnd/00_ClassStructures/02_Definition.h
+    02_BackEnd/00_ClassStructures/02_Definition.cpp
+    02_BackEnd/00_ClassStructures/03_Instance.h
+    02_BackEnd/00_ClassStructures/03_Instance.cpp
+    02_BackEnd/00_ClassStructures/04_Wire.h
+    02_BackEnd/00_ClassStructures/05_Support.h
+    02_BackEnd/00_ClassStructures/05_Support.cpp
+    02_BackEnd/04_JSONStructure/json.hpp
+    02_BackEnd/04_JSONStructure/00_JsonConvert.h
+    02_BackEnd/04_JSONStructure/00_JsonConvert.cpp
+    02_BackEnd/04_JSONStructure/01_JsonFile.h
+    02_BackEnd/04_JSONStructure/01_JsonFile.cpp
+    02_BackEnd/04_JSONStructure/02_LibraryFile.h
+    02_BackEnd/04_JSONStructure/02_LibraryFile.cpp
+    02_BackEnd/04_JSONStructure/03_ProjectFile.h
+    02_BackEnd/04_JSONStructure/03_ProjectFile.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

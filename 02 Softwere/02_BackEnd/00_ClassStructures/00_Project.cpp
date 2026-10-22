@@ -1,21 +1,36 @@
-#include "00_Project.h"
+#include "01_Library.h"
 
-ProjectClass::ProjectClass()
-    : name("Untitled")
-    , filePath("")
+Library Library::makePrimitive()
+{
+    Library primitive("Primitive");
+    for (GateType type : { GateType::NOT, GateType::AND, GateType::OR, GateType::XOR,
+                          GateType::NAND, GateType::NOR, GateType::XNOR })
+        primitive.add(Definition::makeGate(type));
+    return primitive;
+}
+
+Library::Library(const std::string& name)
+    : name(name)
 {
 }
 
-bool ProjectClass::save(const std::string& path)
+void Library::add(const Definition& definition)
 {
-    // TODO: serialize blocks + wires to file
-    filePath = path;
-    return true;
+    definitions.insert_or_assign(definition.name, definition);
 }
 
-bool ProjectClass::load(const std::string& path)
+const Definition* Library::find(const std::string& definitionName) const
 {
-    // TODO: parse file into blocks + wires
-    filePath = path;
-    return true;
+    auto found = definitions.find(definitionName);
+    return found == definitions.end() ? nullptr : &found->second;
+}
+
+const std::map<std::string, Definition>& Library::getDefinitions() const
+{
+    return definitions;
+}
+
+std::map<std::string, Definition>& Library::getDefinitions()
+{
+    return definitions;
 }
