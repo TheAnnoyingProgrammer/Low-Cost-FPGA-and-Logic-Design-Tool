@@ -1,0 +1,35 @@
+### Footprint positions - created on 2026-10-12T08:12:00 ###
+### Printed by KiCad version 10.0.6
+## Unit = mm, Angle = deg.
+## Side : All
+# Ref     Val                  Package                               PosX       PosY       Rot  Side
+J1        Conn_x09_PortY       PinHeader_1x09_P2.54mm_Vertical    21.7400   -45.0000    0.0000  bottom
+J2        Conn_x09_PortY       PinHeader_1x09_P2.54mm_Vertical    68.2600   -45.0000  180.0000  bottom
+C1        100nF                C_0805_2012Metric                  34.5000   -47.0000   90.0000  top
+C2        4.7uF                C_0805_2012Metric                  34.5000   -43.0500   90.0000  top
+C3        100nF                C_0805_2012Metric                  41.9500   -50.5000  180.0000  top
+C4        4.7uF                C_0805_2012Metric                  38.0500   -50.5000  180.0000  top
+C5        100nF                C_0805_2012Metric                  45.5000   -43.0500  -90.0000  top
+C6        4.7uF                C_0805_2012Metric                  45.5000   -46.9500  -90.0000  top
+C7        100nF                C_0805_2012Metric                  38.0000   -39.5000    0.0000  top
+C8        4.7uF                C_0805_2012Metric                  41.9500   -39.5000    0.0000  top
+C9        100nF                C_0805_2012Metric                  49.0000   -47.5500   90.0000  top
+C10       100nF                C_0805_2012Metric                  48.5000   -44.5000    0.0000  top
+C11       4.7uF                C_0805_2012Metric                  46.0000   -50.5000  180.0000  top
+C12       4.7uF                C_0805_2012Metric                  45.9500   -39.5000    0.0000  top
+C13       100nF                C_0805_2012Metric                  49.5000   -40.0500  -90.0000  top
+C14       100nF                C_0805_2012Metric                  49.0000   -56.0500   90.0000  top
+C15       20pF                 C_0805_2012Metric                  42.0500   -55.5000  180.0000  top
+C16       20pF                 C_0805_2012Metric                  30.5000   -53.5500   90.0000  top
+J3        USB4085-GF-A_REVB    USB_C_Receptacle_GCT_USB4085       42.0000   -64.0000    0.0000  top
+J4        Conn_x04_Power       PinHeader_1x04_P2.54mm_Vertical    45.0000   -21.7400   90.0000  top
+R1        10k                  R_0805_2012Metric                  60.0875   -44.5000  180.0000  top
+R2        10k                  R_0805_2012Metric                  46.5000   -56.4125   90.0000  top
+R3        10k                  R_0805_2012Metric                  46.5000   -60.0875   90.0000  top
+U1        ICE40LP384-SG32      QFN33P50_500X500X100L40X24T270N    40.0000   -45.0000    0.0000  top
+U2        AMS1117-1.2          SOT-223-3_TabPin2                  31.5000   -32.3500  -90.0000  top
+U3        AMS1117-3.3          SOT-223-3_TabPin2                  58.5000   -32.3500  -90.0000  top
+U5        MCP2210-I_SO         SOIC-20W_7.5x12.8mm_P1.27mm        56.3500   -55.2850  180.0000  top
+Y1        ABLS-12.000MHZ-B4-T  XTAL_ABLS-12.000MHZ-B4-T           36.0000   -59.5000    0.0000  top
+Y2        ASE-12.000MHZ-L-C-T  XTAL_ASE-12.000MHZ-L-C-T           41.5500   -34.3250  -90.0000  top
+## End

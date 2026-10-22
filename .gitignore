@@ -1,0 +1,23 @@
+# Qt
+build*/
+*.pro.user
+*.pro.user.*
+CMakeLists.txt.user*
+*.o
+*.obj
+*.exe
+*.dll
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+Makefile*
+.qmake.stash
+
+# KiCad
+*-backups/
+*.kicad_prl
+fp-info-cache
+*.lck
+_autosave-*
+*.bak
+*-bak
