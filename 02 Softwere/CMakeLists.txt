@@ -22,6 +22,16 @@ set(PROJECT_SOURCES
     01_FrontEnd/01_MenuBar/02_Edit.cpp
     01_FrontEnd/01_MenuBar/03_Tools.cpp
     01_FrontEnd/01_MenuBar/04_Help.cpp
+    01_FrontEnd/02_Canvas/00_Canvas.h
+    01_FrontEnd/02_Canvas/00_Canvas.cpp
+    01_FrontEnd/02_Canvas/01_GateItem.h
+    01_FrontEnd/02_Canvas/01_GateItem.cpp
+    01_FrontEnd/02_Canvas/02_WireItem.h
+    01_FrontEnd/02_Canvas/02_WireItem.cpp
+    01_FrontEnd/02_Canvas/03_PortItem.h
+    01_FrontEnd/02_Canvas/03_PortItem.cpp
+    01_FrontEnd/03_ComponentBar/00_ComponentBar.h
+    01_FrontEnd/03_ComponentBar/00_ComponentBar.cpp
     02_BackEnd/00_ClassStructures/00_Project.h
     02_BackEnd/00_ClassStructures/00_Project.cpp
     02_BackEnd/00_ClassStructures/01_Library.h
