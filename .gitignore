@@ -7,17 +7,38 @@ CMakeLists.txt.user*
 *.obj
 *.exe
 *.dll
+*.pdb
+*.ilk
 moc_*.cpp
 ui_*.h
 qrc_*.cpp
 Makefile*
 .qmake.stash
+.qtc_clangd/
 
 # KiCad
 *-backups/
+.history/
 *.kicad_prl
 fp-info-cache
 *.lck
 _autosave-*
 *.bak
 *-bak
+*.kicad_sch-bak
+*.kicad_pcb-bak
+
+# Archives
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# Windows / editors
+Thumbs.db
+desktop.ini
+.vscode/
+.vs/
+*.tmp
+~*
