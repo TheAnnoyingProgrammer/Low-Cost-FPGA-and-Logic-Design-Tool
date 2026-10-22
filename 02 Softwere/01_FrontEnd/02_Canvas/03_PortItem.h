@@ -2,10 +2,9 @@
 
 #include <QGraphicsRectItem>
 #include <QString>
+#include "02_WireItem.h"
 
-// Fixed FPGA I/O port on the board edge: a labelled box with one pin dot.
-// Inputs sit on the left edge (pin on their right side), outputs on the right edge.
-class PortItem : public QGraphicsRectItem
+class PortItem : public QGraphicsRectItem, public WireOwner
 {
 public:
     enum { Type = UserType + 4 };
@@ -13,4 +12,11 @@ public:
 
     PortItem(const QString& name, Direction direction);
     int type() const override { return Type; }
+
+protected:
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
+
+private:
+    double edgeX() const;
+    Direction direction;
 };

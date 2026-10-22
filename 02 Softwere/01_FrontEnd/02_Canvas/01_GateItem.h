@@ -2,13 +2,11 @@
 
 #include <QGraphicsEllipseItem>
 #include <QGraphicsRectItem>
-#include <vector>
+#include "02_WireItem.h"
 
 class Definition;
 class Project;
-class WireItem;
 
-// Small dot on a gate or port. Press on it and drag to another pin to make a wire.
 class PinItem : public QGraphicsEllipseItem
 {
 public:
@@ -18,8 +16,7 @@ public:
     int type() const override { return Type; }
 };
 
-// A gate drawn as a rectangle with a label and pin dots. Draggable, snaps to grid.
-class GateItem : public QGraphicsRectItem
+class GateItem : public QGraphicsRectItem, public WireOwner
 {
 public:
     enum { Type = UserType + 1 };
@@ -30,15 +27,12 @@ public:
     int index() const { return instanceIndex; }
     void setIndex(int newIndex) { instanceIndex = newIndex; }
 
-    void attachWire(WireItem* wire);
-    void detachWire(WireItem* wire);
-    const std::vector<WireItem*>& attachedWires() const { return wires; }
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
 
 private:
-    int instanceIndex;            // index into project.instances
+    int instanceIndex;
     Project& project;
-    std::vector<WireItem*> wires; // wires to redraw when this gate moves
 };

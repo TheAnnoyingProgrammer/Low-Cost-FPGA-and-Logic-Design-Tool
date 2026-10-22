@@ -1,24 +1,25 @@
 #include "01_GateItem.h"
 #include "00_Canvas.h"
-#include "02_WireItem.h"
 #include <QBrush>
-#include <QCursor>
+#include <QPainter>
 #include <QPen>
-#include <algorithm>
 #include "02_BackEnd/00_ClassStructures/00_Project.h"
 
 namespace
 {
-const double pinRadius = 5.0;
+const double pinRadius = 4.5;
 const double pinSpacing = 20.0;
+const QColor fillColour(238, 243, 255);
+const QColor edgeColour(70, 85, 110);
+const QColor selectedColour(47, 125, 246);
+const QColor textColour(35, 50, 77);
 }
 
 PinItem::PinItem(QGraphicsItem* parent)
     : QGraphicsEllipseItem(-pinRadius, -pinRadius, 2 * pinRadius, 2 * pinRadius, parent)
 {
-    setBrush(QBrush(QColor(40, 40, 40)));
+    setBrush(QBrush(QColor(43, 47, 54)));
     setPen(Qt::NoPen);
-    setCursor(Qt::CrossCursor);
 }
 
 GateItem::GateItem(int instanceIndex, const Definition& definition, Project& project)
@@ -26,15 +27,14 @@ GateItem::GateItem(int instanceIndex, const Definition& definition, Project& pro
     , instanceIndex(instanceIndex)
     , project(project)
 {
-    setBrush(QBrush(QColor(235, 242, 255)));
-    setPen(QPen(Qt::black, 1.5));
-    setFlags(ItemIsMovable | ItemSendsGeometryChanges);
+    setPen(QPen(edgeColour, 2.5));
+    setFlags(ItemIsSelectable | ItemSendsGeometryChanges);
 
     auto* label = new QGraphicsSimpleTextItem(QString::fromStdString(definition.name), this);
+    label->setBrush(textColour);
     const QRectF textBox = label->boundingRect();
     label->setPos((rect().width() - textBox.width()) / 2, (rect().height() - textBox.height()) / 2);
 
-    // Pin positions are worked out here: inputs down the left edge, output centred on the right.
     int inputIndex = 0;
     for (const Pin& pin : definition.pins)
     {
@@ -47,26 +47,23 @@ GateItem::GateItem(int instanceIndex, const Definition& definition, Project& pro
     }
 }
 
-void GateItem::attachWire(WireItem* wire)
+void GateItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
 {
-    wires.push_back(wire);
-}
-
-void GateItem::detachWire(WireItem* wire)
-{
-    wires.erase(std::remove(wires.begin(), wires.end(), wire), wires.end());
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->setBrush(fillColour);
+    painter->setPen(isSelected() ? QPen(selectedColour, 2.5) : QPen(edgeColour, 1.5));
+    painter->drawRoundedRect(rect(), 4, 4);
 }
 
 QVariant GateItem::itemChange(GraphicsItemChange change, const QVariant& value)
 {
     if (change == ItemPositionChange)
-        return Canvas::constrainGatePosition(value.toPointF(), rect().size());   // snap + stay on board
+        return Canvas::constrainGatePosition(value.toPointF(), rect().size());
 
     if (change == ItemPositionHasChanged)
     {
         project.instances[instanceIndex].position = { pos().x(), pos().y() };
-        for (WireItem* wire : wires)
-            wire->updateEnds();
+        updateWires();
     }
     return QGraphicsRectItem::itemChange(change, value);
 }
