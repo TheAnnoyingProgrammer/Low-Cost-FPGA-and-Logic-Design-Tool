@@ -1,37 +1,78 @@
-#pragma once
+#include "00_JsonConvert.h"
 
-#include <vector>
-#include "json.hpp"
-#include "02_BackEnd/00_ClassStructures/02_Definition.h"
-
-using Json = nlohmann::ordered_json;
-
-Json toJson(const Pin& pin);
-Json toJson(const Symbol& symbol);
-Json toJson(const Wire& wire);
-Json toJson(const Instance& instance);
-Json toJson(const Definition& definition);
-
-Pin pinFromJson(const Json& json);
-Symbol symbolFromJson(const Json& json);
-Wire wireFromJson(const Json& json);
-Instance instanceFromJson(const Json& json);
-Definition definitionFromJson(const Json& json);
-
-template <typename T>
-Json toJsonArray(const std::vector<T>& items)
+namespace
 {
-    Json array = Json::array();
-    for (const T& item: items)
-        array.push_back(toJson(item));
-    return array;
+std::string pinTypeToString(PinType type)
+{
+    return type == PinType::Output ? "output" : "input";
 }
 
-template <typename T, typename Reader>
-std::vector<T> fromJsonArray(const Json& array, Reader read)
+PinType pinTypeFromString(const std::string& text)
 {
-    std::vector<T> items;
-    for (const Json& item: array)
-        items.push_back(read(item));
-    return items;
+    return text == "output" ? PinType::Output : PinType::Input;
+}
+}
+
+Json toJson(const Pin& pin)
+{
+    return { {"name", pin.name}, {"type", pinTypeToString(pin.type)},
+            {"x", pin.offset.x}, {"y", pin.offset.y} };
+}
+
+Json toJson(const Symbol& symbol)
+{
+    return { {"width", symbol.width}, {"height", symbol.height}, {"shape", symbol.shape} };
+}
+
+Json toJson(const Wire& wire)
+{
+    return { {"x1", wire.start.x}, {"y1", wire.start.y},
+            {"x2", wire.end.x},   {"y2", wire.end.y} };
+}
+
+Json toJson(const Instance& instance)
+{
+    return { {"name", instance.name}, {"definition", instance.definitionId},
+            {"x", instance.position.x}, {"y", instance.position.y} };
+}
+
+Json toJson(const Definition& definition)
+{
+    return { {"name", definition.name},
+            {"pins", toJsonArray(definition.pins)},
+            {"symbol", toJson(definition.symbol)},
+            {"instances", toJsonArray(definition.instances)},
+            {"wires", toJsonArray(definition.wires)} };
+}
+
+Pin pinFromJson(const Json& json)
+{
+    return { json.at("name"), pinTypeFromString(json.at("type")),
+            { json.value("x", 0.0), json.value("y", 0.0) } };
+}
+
+Symbol symbolFromJson(const Json& json)
+{
+    return { json.value("width", 0.0), json.value("height", 0.0), json.value("shape", "") };
+}
+
+Wire wireFromJson(const Json& json)
+{
+    return { { json.at("x1"), json.at("y1") }, { json.at("x2"), json.at("y2") } };
+}
+
+Instance instanceFromJson(const Json& json)
+{
+    return Instance(json.at("name"), json.at("definition"), nullptr,
+                    { json.at("x"), json.at("y") });
+}
+
+Definition definitionFromJson(const Json& json)
+{
+    Definition definition = Definition::makeCustom(json.at("name"));
+    definition.pins = fromJsonArray<Pin>(json.value("pins", Json::array()), pinFromJson);
+    definition.symbol = symbolFromJson(json.value("symbol", Json::object()));
+    definition.instances = fromJsonArray<Instance>(json.value("instances", Json::array()), instanceFromJson);
+    definition.wires = fromJsonArray<Wire>(json.value("wires", Json::array()), wireFromJson);
+    return definition;
 }

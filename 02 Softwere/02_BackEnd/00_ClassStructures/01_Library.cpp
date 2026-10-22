@@ -4,7 +4,7 @@ Library Library::makePrimitive()
 {
     Library primitive("Primitive");
     for (GateType type : { GateType::NOT, GateType::AND, GateType::OR, GateType::XOR,
-                           GateType::NAND, GateType::NOR, GateType::XNOR })
+                          GateType::NAND, GateType::NOR, GateType::XNOR })
         primitive.add(Definition::makeGate(type));
     return primitive;
 }
@@ -23,4 +23,14 @@ const Definition* Library::find(const std::string& definitionName) const
 {
     auto found = definitions.find(definitionName);
     return found == definitions.end() ? nullptr : &found->second;
+}
+
+const std::map<std::string, Definition>& Library::getDefinitions() const
+{
+    return definitions;
+}
+
+std::map<std::string, Definition>& Library::getDefinitions()
+{
+    return definitions;
 }
